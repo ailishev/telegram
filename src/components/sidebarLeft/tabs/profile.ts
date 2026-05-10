@@ -29,6 +29,7 @@ import backendBootstrapStore from '@stores/backendBootstrapStore';
 import {reconcilePeer} from '@stores/peers';
 import {mapBackendUser} from '@lib/backendMtprotoAdapter';
 import backendApi from '@lib/backendApi';
+import Modes from '@config/modes';
 
 export default class AppProfileTab extends SliderSuperTab {
   public async init() {
@@ -48,6 +49,21 @@ export default class AppProfileTab extends SliderSuperTab {
         onFinish: async(editorResult) => {
           if(editorResult.isVideo) return;
           const resultPayload = await editorResult.getResult();
+          if(Modes.backend) {
+            const reader = new FileReader();
+            reader.onload = async() => {
+              const dataUrl = typeof reader.result === 'string' ? reader.result : '';
+              if(!dataUrl) return;
+              const uploadRes = await backendApi.updateMyAvatar(dataUrl);
+              if(uploadRes.ok && uploadRes.data) {
+                const profileData = (uploadRes.data.user?.profileData || uploadRes.data.user || {}) as Record<string, unknown>;
+                reconcilePeer(rootScope.myId, mapBackendUser(profileData, {self: true}) as any);
+              }
+            };
+            reader.readAsDataURL(resultPayload.blob);
+            return;
+          }
+
           const inputFile = await appDownloadManager.upload(resultPayload.blob);
           this.managers.appProfileManager.uploadProfilePhoto(inputFile);
         }

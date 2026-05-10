@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import prisma from '../../lib/prisma.js';
 import {authMiddleware} from '../../middleware/auth.js';
+import {env} from '../../config/env.js';
 
 const router = Router();
 
@@ -116,6 +117,41 @@ router.get('/:id', authMiddleware, async(req, res) => {
   const user = await ensureProfileCompleteness(req.params.id);
   if(!user) return res.status(404).json({error: 'User not found'});
   res.json({...user, profileData: toPlainProfile(user), gifts: user.gifts || []});
+});
+
+router.post('/me/avatar', authMiddleware, async(req, res) => {
+  const {dataUrl} = req.body || {};
+  if(typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/')) {
+    return res.status(400).json({error: 'dataUrl image is required'});
+  }
+  if(!env.cloudinaryCloudName || !env.cloudinaryUploadPreset) {
+    return res.status(500).json({error: 'Cloudinary is not configured'});
+  }
+
+  const form = new URLSearchParams();
+  form.set('file', dataUrl);
+  form.set('upload_preset', env.cloudinaryUploadPreset);
+  form.set('folder', 'tweb/avatars');
+
+  const cloudinaryRes = await fetch(`https://api.cloudinary.com/v1_1/${env.cloudinaryCloudName}/image/upload`, {
+    method: 'POST',
+    headers: {'content-type': 'application/x-www-form-urlencoded'},
+    body: form.toString()
+  });
+  const cloudinaryJson = await cloudinaryRes.json().catch(() => ({}));
+  const avatarUrl = typeof cloudinaryJson?.secure_url === 'string' ? cloudinaryJson.secure_url : '';
+  if(!cloudinaryRes.ok || !avatarUrl) {
+    return res.status(502).json({error: cloudinaryJson?.error?.message || 'Cloudinary upload failed'});
+  }
+
+  await prisma.profile.upsert({
+    where: {userId: req.user.id},
+    create: {userId: req.user.id, avatarUrl},
+    update: {avatarUrl}
+  });
+
+  const user = await ensureProfileCompleteness(req.user.id);
+  res.json({ok: true, avatarUrl, user: user ? {...user, profileData: toPlainProfile(user)} : null});
 });
 
 export default router;

@@ -1054,6 +1054,62 @@ export default class PopupSendGift extends PopupElement {
   }
 
   private async construct() {
+    if(Modes.backend) {
+      const [loading, setLoading] = createSignal(false);
+      const [items, setItems] = createSignal<any[]>([]);
+      const meName = () => {
+        const me = backendBootstrapStore.currentUser;
+        const first = typeof me?.first_name === 'string' ? me.first_name : '';
+        const last = typeof me?.last_name === 'string' ? me.last_name : '';
+        return `${first} ${last}`.trim() || 'You';
+      };
+
+      const reload = async() => {
+        const res = await backendApi.giftsMine();
+        if(res.ok) {
+          setItems(Array.isArray(res.data?.items) ? res.data.items : []);
+        }
+      };
+
+      const sendToSelf = async() => {
+        if(loading()) return;
+        setLoading(true);
+        await backendApi.giftReceive({title: 'Gift to self', rarity: 'standard'});
+        await reload();
+        setLoading(false);
+      };
+
+      await reload();
+      this.container.replaceChildren();
+      const dispose = render(() => (
+        <div class={styles.mainContainer}>
+          <div class={styles.mainHeader}>
+            <ButtonIconTsx icon="close" onClick={() => this.hide()} />
+            <div class="popup-title">{i18n('StarGiftSendGift')}</div>
+          </div>
+          <div class={styles.mainSubtitle}>
+            {i18n('GiftFor')}: {meName()}
+          </div>
+          <Button class={styles.sendButton} disabled={loading()} onClick={sendToSelf}>
+            {loading() ? 'Sending...' : 'Send gift to myself'}
+          </Button>
+          <div class={styles.mainTitle}>My gifts ({items().length})</div>
+          <For each={items()}>
+            {(gift) => (
+              <Row>
+                <Row.Icon icon="gift" />
+                <Row.Title>{gift.title || 'Gift'}</Row.Title>
+                <Row.Subtitle>{gift.rarity || 'standard'}</Row.Subtitle>
+              </Row>
+            )}
+          </For>
+        </div>
+      ), this.container);
+      this.addEventListener('closeAfterTimeout', dispose);
+      this.show();
+      return;
+    }
+
     const [profileStore, profileStoreActions] = createProfileGiftsStore({
       peerId: rootScope.myId,
       initialFilters: {
