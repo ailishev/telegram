@@ -17,6 +17,9 @@ archive.zip
 .idea
 .env.local
 backend/.env
+backend/src/generated/prisma/*.so.node
+backend/src/generated/prisma/*.dll.node
+backend/src/generated/prisma/*.dylib.node
 src/langPackLocalVersion.ts
 /.ai
 

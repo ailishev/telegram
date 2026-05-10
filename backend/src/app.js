@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import authRoutes from './modules/auth/routes.js';
 import userRoutes from './modules/user/routes.js';
 import chatRoutes from './modules/chat/routes.js';
@@ -8,6 +10,9 @@ import giftsRoutes from './modules/gifts/routes.js';
 
 const app = express();
 app.use(express.json());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDistPath = path.resolve(__dirname, '../../dist');
 
 const allowedOrigins = new Set([
   'http://localhost:8080',
@@ -47,5 +52,18 @@ app.use('/favorites', favoritesRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/gifts', giftsRoutes);
 app.use('/api/gifts', giftsRoutes);
+
+app.use(express.static(frontendDistPath));
+app.use((req, res, next) => {
+  if(req.method !== 'GET') {
+    return next();
+  }
+
+  if(req.path.startsWith('/api/') || req.path.startsWith('/auth') || req.path.startsWith('/user') || req.path.startsWith('/chats') || req.path.startsWith('/messages') || req.path.startsWith('/favorites') || req.path.startsWith('/gifts')) {
+    return next();
+  }
+
+  return res.sendFile(path.join(frontendDistPath, 'index.html'));
+});
 
 export default app;

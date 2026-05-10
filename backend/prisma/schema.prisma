@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -72,6 +73,8 @@ model Profile {
   link           String?
   contactNote    String?
   savedMusic     Json?
+  stories        Json?
+  pinnedGifts    Json?
   avatarUrl      String?
   /** Short online / status line for UI */
   status         String?
@@ -79,6 +82,7 @@ model Profile {
   isVerified     Boolean  @default(false)
   lastSeen       DateTime?
   isPremium      Boolean  @default(false)
+  premiumUntil   DateTime?
   phoneNumber    String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
