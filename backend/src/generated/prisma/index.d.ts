@@ -5258,6 +5258,7 @@ export namespace Prisma {
     isVerified: boolean | null
     lastSeen: Date | null
     isPremium: boolean | null
+    premiumUntil: Date | null
     phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5279,6 +5280,7 @@ export namespace Prisma {
     isVerified: boolean | null
     lastSeen: Date | null
     isPremium: boolean | null
+    premiumUntil: Date | null
     phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5299,12 +5301,15 @@ export namespace Prisma {
     link: number
     contactNote: number
     savedMusic: number
+    stories: number
+    pinnedGifts: number
     avatarUrl: number
     status: number
     verified: number
     isVerified: number
     lastSeen: number
     isPremium: number
+    premiumUntil: number
     phoneNumber: number
     createdAt: number
     updatedAt: number
@@ -5328,6 +5333,7 @@ export namespace Prisma {
     isVerified?: true
     lastSeen?: true
     isPremium?: true
+    premiumUntil?: true
     phoneNumber?: true
     createdAt?: true
     updatedAt?: true
@@ -5349,6 +5355,7 @@ export namespace Prisma {
     isVerified?: true
     lastSeen?: true
     isPremium?: true
+    premiumUntil?: true
     phoneNumber?: true
     createdAt?: true
     updatedAt?: true
@@ -5369,12 +5376,15 @@ export namespace Prisma {
     link?: true
     contactNote?: true
     savedMusic?: true
+    stories?: true
+    pinnedGifts?: true
     avatarUrl?: true
     status?: true
     verified?: true
     isVerified?: true
     lastSeen?: true
     isPremium?: true
+    premiumUntil?: true
     phoneNumber?: true
     createdAt?: true
     updatedAt?: true
@@ -5468,12 +5478,15 @@ export namespace Prisma {
     link: string | null
     contactNote: string | null
     savedMusic: JsonValue | null
+    stories: JsonValue | null
+    pinnedGifts: JsonValue | null
     avatarUrl: string | null
     status: string | null
     verified: boolean
     isVerified: boolean
     lastSeen: Date | null
     isPremium: boolean
+    premiumUntil: Date | null
     phoneNumber: string | null
     createdAt: Date
     updatedAt: Date
@@ -5511,12 +5524,15 @@ export namespace Prisma {
     link?: boolean
     contactNote?: boolean
     savedMusic?: boolean
+    stories?: boolean
+    pinnedGifts?: boolean
     avatarUrl?: boolean
     status?: boolean
     verified?: boolean
     isVerified?: boolean
     lastSeen?: boolean
     isPremium?: boolean
+    premiumUntil?: boolean
     phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5538,12 +5554,15 @@ export namespace Prisma {
     link?: boolean
     contactNote?: boolean
     savedMusic?: boolean
+    stories?: boolean
+    pinnedGifts?: boolean
     avatarUrl?: boolean
     status?: boolean
     verified?: boolean
     isVerified?: boolean
     lastSeen?: boolean
     isPremium?: boolean
+    premiumUntil?: boolean
     phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5565,12 +5584,15 @@ export namespace Prisma {
     link?: boolean
     contactNote?: boolean
     savedMusic?: boolean
+    stories?: boolean
+    pinnedGifts?: boolean
     avatarUrl?: boolean
     status?: boolean
     verified?: boolean
     isVerified?: boolean
     lastSeen?: boolean
     isPremium?: boolean
+    premiumUntil?: boolean
     phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5592,18 +5614,21 @@ export namespace Prisma {
     link?: boolean
     contactNote?: boolean
     savedMusic?: boolean
+    stories?: boolean
+    pinnedGifts?: boolean
     avatarUrl?: boolean
     status?: boolean
     verified?: boolean
     isVerified?: boolean
     lastSeen?: boolean
     isPremium?: boolean
+    premiumUntil?: boolean
     phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "username" | "usernames" | "bio" | "birthday" | "location" | "businessHours" | "businessLocation" | "link" | "contactNote" | "savedMusic" | "avatarUrl" | "status" | "verified" | "isVerified" | "lastSeen" | "isPremium" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "username" | "usernames" | "bio" | "birthday" | "location" | "businessHours" | "businessLocation" | "link" | "contactNote" | "savedMusic" | "stories" | "pinnedGifts" | "avatarUrl" | "status" | "verified" | "isVerified" | "lastSeen" | "isPremium" | "premiumUntil" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5634,6 +5659,8 @@ export namespace Prisma {
       link: string | null
       contactNote: string | null
       savedMusic: Prisma.JsonValue | null
+      stories: Prisma.JsonValue | null
+      pinnedGifts: Prisma.JsonValue | null
       avatarUrl: string | null
       /**
        * * Short online / status line for UI
@@ -5643,6 +5670,7 @@ export namespace Prisma {
       isVerified: boolean
       lastSeen: Date | null
       isPremium: boolean
+      premiumUntil: Date | null
       phoneNumber: string | null
       createdAt: Date
       updatedAt: Date
@@ -6084,12 +6112,15 @@ export namespace Prisma {
     readonly link: FieldRef<"Profile", 'String'>
     readonly contactNote: FieldRef<"Profile", 'String'>
     readonly savedMusic: FieldRef<"Profile", 'Json'>
+    readonly stories: FieldRef<"Profile", 'Json'>
+    readonly pinnedGifts: FieldRef<"Profile", 'Json'>
     readonly avatarUrl: FieldRef<"Profile", 'String'>
     readonly status: FieldRef<"Profile", 'String'>
     readonly verified: FieldRef<"Profile", 'Boolean'>
     readonly isVerified: FieldRef<"Profile", 'Boolean'>
     readonly lastSeen: FieldRef<"Profile", 'DateTime'>
     readonly isPremium: FieldRef<"Profile", 'Boolean'>
+    readonly premiumUntil: FieldRef<"Profile", 'DateTime'>
     readonly phoneNumber: FieldRef<"Profile", 'String'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
@@ -13115,12 +13146,15 @@ export namespace Prisma {
     link: 'link',
     contactNote: 'contactNote',
     savedMusic: 'savedMusic',
+    stories: 'stories',
+    pinnedGifts: 'pinnedGifts',
     avatarUrl: 'avatarUrl',
     status: 'status',
     verified: 'verified',
     isVerified: 'isVerified',
     lastSeen: 'lastSeen',
     isPremium: 'isPremium',
+    premiumUntil: 'premiumUntil',
     phoneNumber: 'phoneNumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -13547,12 +13581,15 @@ export namespace Prisma {
     link?: StringNullableFilter<"Profile"> | string | null
     contactNote?: StringNullableFilter<"Profile"> | string | null
     savedMusic?: JsonNullableFilter<"Profile">
+    stories?: JsonNullableFilter<"Profile">
+    pinnedGifts?: JsonNullableFilter<"Profile">
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
     status?: StringNullableFilter<"Profile"> | string | null
     verified?: BoolFilter<"Profile"> | boolean
     isVerified?: BoolFilter<"Profile"> | boolean
     lastSeen?: DateTimeNullableFilter<"Profile"> | Date | string | null
     isPremium?: BoolFilter<"Profile"> | boolean
+    premiumUntil?: DateTimeNullableFilter<"Profile"> | Date | string | null
     phoneNumber?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
@@ -13574,12 +13611,15 @@ export namespace Prisma {
     link?: SortOrderInput | SortOrder
     contactNote?: SortOrderInput | SortOrder
     savedMusic?: SortOrderInput | SortOrder
+    stories?: SortOrderInput | SortOrder
+    pinnedGifts?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     verified?: SortOrder
     isVerified?: SortOrder
     lastSeen?: SortOrderInput | SortOrder
     isPremium?: SortOrder
+    premiumUntil?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13604,12 +13644,15 @@ export namespace Prisma {
     link?: StringNullableFilter<"Profile"> | string | null
     contactNote?: StringNullableFilter<"Profile"> | string | null
     savedMusic?: JsonNullableFilter<"Profile">
+    stories?: JsonNullableFilter<"Profile">
+    pinnedGifts?: JsonNullableFilter<"Profile">
     avatarUrl?: StringNullableFilter<"Profile"> | string | null
     status?: StringNullableFilter<"Profile"> | string | null
     verified?: BoolFilter<"Profile"> | boolean
     isVerified?: BoolFilter<"Profile"> | boolean
     lastSeen?: DateTimeNullableFilter<"Profile"> | Date | string | null
     isPremium?: BoolFilter<"Profile"> | boolean
+    premiumUntil?: DateTimeNullableFilter<"Profile"> | Date | string | null
     phoneNumber?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
@@ -13631,12 +13674,15 @@ export namespace Prisma {
     link?: SortOrderInput | SortOrder
     contactNote?: SortOrderInput | SortOrder
     savedMusic?: SortOrderInput | SortOrder
+    stories?: SortOrderInput | SortOrder
+    pinnedGifts?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     verified?: SortOrder
     isVerified?: SortOrder
     lastSeen?: SortOrderInput | SortOrder
     isPremium?: SortOrder
+    premiumUntil?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13663,12 +13709,15 @@ export namespace Prisma {
     link?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     contactNote?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     savedMusic?: JsonNullableWithAggregatesFilter<"Profile">
+    stories?: JsonNullableWithAggregatesFilter<"Profile">
+    pinnedGifts?: JsonNullableWithAggregatesFilter<"Profile">
     avatarUrl?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     status?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     verified?: BoolWithAggregatesFilter<"Profile"> | boolean
     isVerified?: BoolWithAggregatesFilter<"Profile"> | boolean
     lastSeen?: DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
     isPremium?: BoolWithAggregatesFilter<"Profile"> | boolean
+    premiumUntil?: DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
     phoneNumber?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -14259,12 +14308,15 @@ export namespace Prisma {
     link?: string | null
     contactNote?: string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: string | null
     status?: string | null
     verified?: boolean
     isVerified?: boolean
     lastSeen?: Date | string | null
     isPremium?: boolean
+    premiumUntil?: Date | string | null
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14286,12 +14338,15 @@ export namespace Prisma {
     link?: string | null
     contactNote?: string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: string | null
     status?: string | null
     verified?: boolean
     isVerified?: boolean
     lastSeen?: Date | string | null
     isPremium?: boolean
+    premiumUntil?: Date | string | null
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14311,12 +14366,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14338,12 +14396,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14364,12 +14425,15 @@ export namespace Prisma {
     link?: string | null
     contactNote?: string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: string | null
     status?: string | null
     verified?: boolean
     isVerified?: boolean
     lastSeen?: Date | string | null
     isPremium?: boolean
+    premiumUntil?: Date | string | null
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14389,12 +14453,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14415,12 +14482,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15110,12 +15180,15 @@ export namespace Prisma {
     link?: SortOrder
     contactNote?: SortOrder
     savedMusic?: SortOrder
+    stories?: SortOrder
+    pinnedGifts?: SortOrder
     avatarUrl?: SortOrder
     status?: SortOrder
     verified?: SortOrder
     isVerified?: SortOrder
     lastSeen?: SortOrder
     isPremium?: SortOrder
+    premiumUntil?: SortOrder
     phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15137,6 +15210,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     lastSeen?: SortOrder
     isPremium?: SortOrder
+    premiumUntil?: SortOrder
     phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15158,6 +15232,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     lastSeen?: SortOrder
     isPremium?: SortOrder
+    premiumUntil?: SortOrder
     phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16402,12 +16477,15 @@ export namespace Prisma {
     link?: string | null
     contactNote?: string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: string | null
     status?: string | null
     verified?: boolean
     isVerified?: boolean
     lastSeen?: Date | string | null
     isPremium?: boolean
+    premiumUntil?: Date | string | null
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16427,12 +16505,15 @@ export namespace Prisma {
     link?: string | null
     contactNote?: string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: string | null
     status?: string | null
     verified?: boolean
     isVerified?: boolean
     lastSeen?: Date | string | null
     isPremium?: boolean
+    premiumUntil?: Date | string | null
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16642,12 +16723,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16667,12 +16751,15 @@ export namespace Prisma {
     link?: NullableStringFieldUpdateOperationsInput | string | null
     contactNote?: NullableStringFieldUpdateOperationsInput | string | null
     savedMusic?: NullableJsonNullValueInput | InputJsonValue
+    stories?: NullableJsonNullValueInput | InputJsonValue
+    pinnedGifts?: NullableJsonNullValueInput | InputJsonValue
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isPremium?: BoolFieldUpdateOperationsInput | boolean
+    premiumUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

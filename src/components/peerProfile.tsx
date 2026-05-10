@@ -328,6 +328,22 @@ PeerProfile.AutoAvatar = () => {
 PeerProfile.Name = () => {
   const context = useContext(PeerProfileContext);
   const {rootScope, wrapPeerTitle} = useHotReloadGuard();
+  const backendSelfName = createMemo(() => {
+    if(!Modes.backend || context.peerId !== rootScope.myId) {
+      return;
+    }
+
+    const user = backendBootstrapStore.currentUser;
+    if(!user || typeof user !== 'object') {
+      return;
+    }
+
+    const firstName = typeof user.first_name === 'string' ? user.first_name.trim() : '';
+    const lastName = typeof user.last_name === 'string' ? user.last_name.trim() : '';
+    const fallbackName = typeof user.name === 'string' ? user.name.trim() : '';
+    const fullName = `${firstName} ${lastName}`.trim() || fallbackName;
+    return fullName || undefined;
+  });
   const {peerId} = context.getDetailsForUse();
   const [element] = createResource(() => [context.needWhite] as const, async([needWhite]) => {
     return wrapPeerTitle({
@@ -345,7 +361,7 @@ PeerProfile.Name = () => {
   });
 
   return (
-    <div class="profile-name">{element()}</div>
+    <div class="profile-name">{backendSelfName() || element()}</div>
   );
 };
 
@@ -383,6 +399,31 @@ PeerProfile.SubtitleRating = () => {
 PeerProfile.SubtitleStatus = () => {
   const context = useContext(PeerProfileContext);
   const {rootScope, appImManager, wrapTopicNameButton} = useHotReloadGuard();
+  const backendSelfStatus = createMemo(() => {
+    if(!Modes.backend || context.peerId !== rootScope.myId) {
+      return;
+    }
+
+    const user = backendBootstrapStore.currentUser;
+    if(!user || typeof user !== 'object') {
+      return;
+    }
+
+    const status = user.status ?? user.presence ?? user.online_status;
+    if(typeof status === 'string') {
+      const normalizedStatus = status.trim();
+      if(normalizedStatus) {
+        return normalizedStatus;
+      }
+    }
+  });
+
+  if(backendSelfStatus()) {
+    return (
+      <span>{backendSelfStatus()}</span>
+    );
+  }
+
   const needWhen = createMemo(() => {
     const user = (context.peer as User.user);
     return !!(user?.status as UserStatus.userStatusRecently)?.pFlags?.by_me;
@@ -1488,6 +1529,34 @@ PeerProfile.StoryPreviews = (props: {
 
 PeerProfile.MainSection = () => {
   const context = useContext(PeerProfileContext);
+  const {rootScope, i18n} = useHotReloadGuard();
+  const isBackendSelf = createMemo(() => Modes.backend && context.peerId === rootScope.myId);
+  const backendUser = createMemo(() => backendBootstrapStore.currentUser as Record<string, unknown> | null);
+
+  const readString = (value: unknown) => typeof value === 'string' ? value.trim() : '';
+  const readArrayCount = (value: unknown) => Array.isArray(value) ? value.length : 0;
+  const backendBirthday = createMemo(() => {
+    const user = backendUser();
+    if(!user) return '';
+    const raw = user.birthday;
+    if(typeof raw === 'string') return raw;
+    if(raw && typeof raw === 'object') {
+      const day = Number((raw as any).day || 0);
+      const month = Number((raw as any).month || 0);
+      const year = Number((raw as any).year || 0);
+      if(day > 0 && month > 0) {
+        return year > 0 ? `${day}.${month}.${year}` : `${day}.${month}`;
+      }
+    }
+    return '';
+  });
+  const backendMusicCount = createMemo(() => readArrayCount(backendUser()?.saved_music ?? backendUser()?.music));
+  const backendStoriesCount = createMemo(() => readArrayCount(backendUser()?.stories));
+  const backendGiftsCount = createMemo(() => readArrayCount(backendUser()?.gifts));
+  const backendVerified = createMemo(() => !!(backendUser()?.verified || backendUser()?.isVerified));
+  const backendBio = createMemo(() =>
+    readString(backendUser()?.bio ?? backendUser()?.about ?? backendUser()?.description)
+  );
 
   return (
     <Section
@@ -1498,15 +1567,57 @@ PeerProfile.MainSection = () => {
         <PeerProfile.AutoAvatar />
       </Show>
       <Show when={!(context.isBotforum && context.threadId)}>
-        <PeerProfile.Phone />
-        <PeerProfile.Username />
-        <PeerProfile.Location />
-        <PeerProfile.Bio />
-        <PeerProfile.PinnedGifts />
-        <PeerProfile.Link />
-        <PeerProfile.Birthday />
-        <PeerProfile.ContactNote />
-        <PeerProfile.Notifications />
+        <Show when={isBackendSelf()} fallback={(
+          <>
+            <PeerProfile.Phone />
+            <PeerProfile.Username />
+            <PeerProfile.Location />
+            <PeerProfile.Bio />
+            <PeerProfile.PinnedGifts />
+            <PeerProfile.Link />
+            <PeerProfile.Birthday />
+            <PeerProfile.ContactNote />
+            <PeerProfile.Notifications />
+          </>
+        )}>
+          <PeerProfile.Phone />
+          <PeerProfile.Username />
+          <Show when={backendBio()}>
+            <Row>
+              <Row.Icon icon="info" />
+              <Row.Title>{backendBio()}</Row.Title>
+              <Row.Subtitle>{i18n('UserBio')}</Row.Subtitle>
+            </Row>
+          </Show>
+          <Show when={backendBirthday()}>
+            <Row>
+              <Row.Icon icon="calendar" />
+              <Row.Title>{backendBirthday()}</Row.Title>
+              <Row.Subtitle>{i18n('Birthday')}</Row.Subtitle>
+            </Row>
+          </Show>
+          <Show when={backendVerified()}>
+            <Row>
+              <Row.Icon icon="info" />
+              <Row.Title>{i18n('Verified.Channel')}</Row.Title>
+            </Row>
+          </Show>
+          <Row>
+            <Row.Icon icon="stories" />
+            <Row.Title>{numberThousandSplitter(backendStoriesCount())}</Row.Title>
+            <Row.Subtitle>{i18n('Stories')}</Row.Subtitle>
+          </Row>
+          <Row>
+            <Row.Icon icon="music" />
+            <Row.Title>{numberThousandSplitter(backendMusicCount())}</Row.Title>
+            <Row.Subtitle>{i18n('PrivacySavedMusic')}</Row.Subtitle>
+          </Row>
+          <Row>
+            <Row.Icon icon="gift" />
+            <Row.Title>{numberThousandSplitter(backendGiftsCount())}</Row.Title>
+            <Row.Subtitle>{i18n('SharedMedia.Gifts')}</Row.Subtitle>
+          </Row>
+        </Show>
       </Show>
     </Section>
   );

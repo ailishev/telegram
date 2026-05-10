@@ -27,8 +27,12 @@ function defaultProfileData({phone, firstName, lastName}) {
     link: `t.me/${username}`,
     contactNote: 'Personal note',
     savedMusic: {title: 'Saved Track', performer: 'Unknown Artist'},
+    stories: [],
+    pinnedGifts: [],
     status: 'online',
     verified: false,
+    isPremium: false,
+    premiumUntil: null,
     lastSeen: new Date(),
     phoneNumber: phone
   };
