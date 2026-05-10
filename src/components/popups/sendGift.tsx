@@ -65,6 +65,7 @@ import {unwrap} from 'solid-js/store';
 
 import styles from '@components/popups/sendGift.module.scss';
 import Animated from '@helpers/solid/animations';
+import Modes from '@config/modes';
 
 type GiftOption = MyStarGift | MyPremiumGiftOption;
 
@@ -193,7 +194,7 @@ function GiftOptionsPage(props: {
       return
     }
 
-    if(gift.locked_until_date > tsNow(true)) {
+    if(!Modes.backend && gift.locked_until_date > tsNow(true)) {
       const result = await rootScope.managers.apiManager.invokeApi('payments.checkCanSendGift', {
         gift_id: gift.id
       })
