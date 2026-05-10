@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "start": "node scripts/ensure-prisma-client.js && node src/server.js",
     "prisma:ensure": "node scripts/ensure-prisma-client.js",
     "prisma:generate": "prisma generate --schema=prisma/schema.prisma",
     "prisma:push": "prisma db push --schema=prisma/schema.prisma",
