@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "start": "vite --force",
+    "start": "pnpm --filter tweb-messenger-backend start",
+    "start:web": "vite --force",
     "start-in-docker": "vite --force --host",
     "serve": "pnpm run build; node server.js",
     "build": "pnpm install --no-frozen-lockfile && pnpm run generate-changelog && vite build",
