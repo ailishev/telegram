@@ -66,8 +66,6 @@ import {unwrap} from 'solid-js/store';
 import styles from '@components/popups/sendGift.module.scss';
 import Animated from '@helpers/solid/animations';
 import Modes from '@config/modes';
-import backendApi from '@lib/backendApi';
-import backendBootstrapStore from '@stores/backendBootstrapStore';
 
 type GiftOption = MyStarGift | MyPremiumGiftOption;
 
