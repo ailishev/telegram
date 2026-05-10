@@ -66,6 +66,8 @@ import {unwrap} from 'solid-js/store';
 import styles from '@components/popups/sendGift.module.scss';
 import Animated from '@helpers/solid/animations';
 import Modes from '@config/modes';
+import backendApi from '@lib/backendApi';
+import backendBootstrapStore from '@stores/backendBootstrapStore';
 
 type GiftOption = MyStarGift | MyPremiumGiftOption;
 
@@ -1088,7 +1090,7 @@ export default class PopupSendGift extends PopupElement {
             <div class="popup-title">{i18n('StarGiftSendGift')}</div>
           </div>
           <div class={styles.mainSubtitle}>
-            {i18n('GiftFor')}: {meName()}
+            For: {meName()}
           </div>
           <Button class={styles.sendButton} disabled={loading()} onClick={sendToSelf}>
             {loading() ? 'Sending...' : 'Send gift to myself'}

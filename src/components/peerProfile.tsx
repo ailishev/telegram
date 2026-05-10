@@ -1591,15 +1591,15 @@ PeerProfile.MainSection = () => {
           </Show>
           <Show when={backendBirthday()}>
             <Row>
-              <Row.Icon icon="birthday" />
+              <Row.Icon icon="calendar" />
               <Row.Title>{backendBirthday()}</Row.Title>
-              <Row.Subtitle>{i18n('UserBirthday')}</Row.Subtitle>
+              <Row.Subtitle>{i18n('Birthday')}</Row.Subtitle>
             </Row>
           </Show>
           <Show when={backendVerified()}>
             <Row>
-              <Row.Icon icon="verified" />
-              <Row.Title>{i18n('PeerInfo.Verified')}</Row.Title>
+              <Row.Icon icon="info" />
+              <Row.Title>{i18n('Verified.Channel')}</Row.Title>
             </Row>
           </Show>
           <Row>
@@ -1610,7 +1610,7 @@ PeerProfile.MainSection = () => {
           <Row>
             <Row.Icon icon="music" />
             <Row.Title>{numberThousandSplitter(backendMusicCount())}</Row.Title>
-            <Row.Subtitle>{i18n('SavedMusic')}</Row.Subtitle>
+            <Row.Subtitle>{i18n('PrivacySavedMusic')}</Row.Subtitle>
           </Row>
           <Row>
             <Row.Icon icon="gift" />
