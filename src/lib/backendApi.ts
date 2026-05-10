@@ -59,6 +59,14 @@ export default {
   sendMessage: (payload: {chatId: string, text: string}) => request<any>('/messages/send', {
     method: 'POST',
     body: JSON.stringify(payload)
+  }),
+  updateMyAvatar: (dataUrl: string) => request<any>('/user/me/avatar', {
+    method: 'POST',
+    body: JSON.stringify({dataUrl})
+  }),
+  giftsMine: () => request<{items: any[]}>('/gifts/mine'),
+  giftReceive: (payload: {title?: string, rarity?: string, animation?: string}) => request<any>('/gifts/receive', {
+    method: 'POST',
+    body: JSON.stringify(payload)
   })
 };
-
