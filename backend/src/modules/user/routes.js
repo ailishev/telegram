@@ -20,9 +20,13 @@ function buildProfileDefaults(user) {
     link: p.link || null,
     contactNote: p.contactNote || null,
     savedMusic: p.savedMusic || null,
+    stories: p.stories || [],
+    pinnedGifts: p.pinnedGifts || [],
     avatarUrl: p.avatarUrl || null,
     status: p.status || null,
     verified: typeof p.verified === 'boolean' ? p.verified : false,
+    isPremium: typeof p.isPremium === 'boolean' ? p.isPremium : false,
+    premiumUntil: p.premiumUntil || null,
     lastSeen: p.lastSeen || null,
     phoneNumber: p.phoneNumber || user.phone || null
   };
@@ -55,11 +59,14 @@ function toPlainProfile(user) {
     link: p.link || '',
     contactNote: p.contactNote || '',
     savedMusic: p.savedMusic || null,
+    stories: Array.isArray(p.stories) ? p.stories : [],
+    pinnedGifts: Array.isArray(p.pinnedGifts) ? p.pinnedGifts : [],
     avatar: p.avatarUrl || '',
     status: p.status || '',
     verified: !!(p.verified || p.isVerified),
     lastSeen: p.lastSeen || null,
     isPremium: !!p.isPremium,
+    premiumUntil: p.premiumUntil || null,
     phoneNumber: p.phoneNumber || user.phone || null
   };
 }
@@ -80,7 +87,11 @@ router.get('/me', authMiddleware, async(req, res) => {
       username: (p?.username && String(p.username).trim()) || '',
       avatar: p?.avatarUrl || '',
       status: p?.status || '',
-      verified: !!p?.verified
+      verified: !!p?.verified,
+      isPremium: !!p?.isPremium,
+      premiumUntil: p?.premiumUntil || null,
+      storiesCount: Array.isArray(p?.stories) ? p.stories.length : 0,
+      giftsCount: Array.isArray(user.gifts) ? user.gifts.length : 0
     }
   });
 });
