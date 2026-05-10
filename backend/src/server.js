@@ -8,6 +8,6 @@ const server = http.createServer(app);
 
 attachWebSocketHub(server, prisma);
 
-server.listen(env.port, () => {
+server.listen(8000, () => {
   console.log(`Messenger backend listening on :${env.port}`);
 });
