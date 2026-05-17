@@ -66,3 +66,6 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 - Vercel root config no longer defines a `functions` glob for `next-app/app/api/**` (invalid for Next.js app router in root project config).
 
 - Added `next-app` to `pnpm-workspace.yaml` so Vercel root install provisions Next app dependencies and Prisma CLI binaries.
+
+- Root `vercel.json` now relies on Next.js default output handling (removed explicit `outputDirectory`) to avoid adapter mismatch issues.
+- `vercel-build` disables Next telemetry in CI logs (`NEXT_TELEMETRY_DISABLED=1`).
