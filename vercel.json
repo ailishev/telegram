@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "installCommand": "pnpm install --no-frozen-lockfile",
+  "installCommand": "pnpm --dir next-app install --no-frozen-lockfile",
   "buildCommand": "pnpm --dir next-app vercel-build",
   "outputDirectory": "next-app/.next"
 }
