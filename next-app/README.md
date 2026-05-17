@@ -75,3 +75,5 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 - Stories block in `PeerProfileView` switched to static preset items per request.
 
 - CI build guard: enabled `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` in `next.config.ts` to prevent Vercel build hard-fail during migration phase.
+
+- Root `vercel.json` explicitly sets `outputDirectory: next-app/.next` so Vercel can pick build artifacts from subdirectory app builds.
