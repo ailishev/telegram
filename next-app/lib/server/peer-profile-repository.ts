@@ -27,6 +27,10 @@ function toResponse(row: Awaited<ReturnType<ReturnType<typeof getPrisma>['peerPr
 }
 
 export async function getPeerProfileFromDb(peerId: string): Promise<PeerProfileResponse | null> {
+  if(!process.env.DATABASE_URL) {
+    return null;
+  }
+
   const row = await getPrisma().peerProfile.findUnique({
     where: {peerId},
     include: {
@@ -49,6 +53,10 @@ export async function getPeerProfileSectionFromDb(peerId: string, section: PeerP
 }
 
 export async function listPeerProfilesFromDb(limit = 20, cursor?: string) {
+  if(!process.env.DATABASE_URL) {
+    return {items: [], nextCursor: null};
+  }
+
   const rows = await getPrisma().peerProfile.findMany({
     take: Math.max(1, Math.min(limit, 100)),
     ...(cursor ? {skip: 1, cursor: {peerId: cursor}} : {}),
