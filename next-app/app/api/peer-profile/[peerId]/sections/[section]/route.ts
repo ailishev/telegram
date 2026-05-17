@@ -4,8 +4,8 @@ import type {PeerProfileSection} from '@/types/peer-profile';
 
 const sectionSet = new Set<PeerProfileSection>(['about', 'stories', 'gifts', 'music']);
 
-export async function GET(_request: Request, {params}: {params: Promise<{peerId: string, section: string}>}) {
-  const {peerId, section} = await params;
+export async function GET(_request: Request, {params}: {params: {peerId: string, section: string}}) {
+  const {peerId, section} = params;
 
   if(!sectionSet.has(section as PeerProfileSection)) {
     return NextResponse.json({error: 'Unknown section'}, {status: 400});
