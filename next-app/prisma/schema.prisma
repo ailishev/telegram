@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PeerKind {
+  user
+  chat
+  channel
+}
+
+model PeerProfile {
+  peerId        String   @id @map("peer_id")
+  kind          PeerKind
+  displayName   String   @map("display_name")
+  username      String?
+  avatarUrl     String?  @map("avatar_url")
+  statusText    String?  @map("status_text")
+  bio           String?
+  isForum       Boolean  @default(false) @map("is_forum")
+  isTopic       Boolean  @default(false) @map("is_topic")
+  hasSavedMusic Boolean  @default(false) @map("has_saved_music")
+  statsJson     Json?    @map("stats_json")
+  badgesJson    Json?    @map("badges_json")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  stories PeerProfileStory[]
+  gifts   PeerProfileGift[]
+  music   PeerProfileMusic[]
+
+  @@map("peer_profiles")
+}
+
+model PeerProfileStory {
+  id        String   @id @default(cuid())
+  peerId    String   @map("peer_id")
+  title     String
+  payload   Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  peerProfile PeerProfile @relation(fields: [peerId], references: [peerId], onDelete: Cascade)
+
+  @@index([peerId])
+  @@map("peer_profile_stories")
+}
+
+model PeerProfileGift {
+  id        String   @id @default(cuid())
+  peerId    String   @map("peer_id")
+  title     String
+  payload   Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  peerProfile PeerProfile @relation(fields: [peerId], references: [peerId], onDelete: Cascade)
+
+  @@index([peerId])
+  @@map("peer_profile_gifts")
+}
+
+model PeerProfileMusic {
+  id        String   @id @default(cuid())
+  peerId    String   @map("peer_id")
+  title     String
+  payload   Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  peerProfile PeerProfile @relation(fields: [peerId], references: [peerId], onDelete: Cascade)
+
+  @@index([peerId])
+  @@map("peer_profile_music")
+}
