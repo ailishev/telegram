@@ -1,5 +1,11 @@
 import type {PeerProfileResponse} from '@/types/peer-profile';
 
+const STATIC_STORIES = [
+  'Story A',
+  'Story B',
+  'Story C'
+];
+
 export default function PeerProfileView(props: {profile: PeerProfileResponse}) {
   const {profile} = props;
 
@@ -28,8 +34,8 @@ export default function PeerProfileView(props: {profile: PeerProfileResponse}) {
       <section style={{marginBottom: 20}}>
         <h2>Stories</h2>
         <ul>
-          {profile.sections.stories.map((item) => (
-            <li key={item.id}>{item.title || item.id}</li>
+          {STATIC_STORIES.map((title) => (
+            <li key={title}>{title}</li>
           ))}
         </ul>
       </section>
