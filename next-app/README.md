@@ -62,3 +62,5 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 - Root `vercel.json` now builds `next-app` directly instead of the legacy Vite root app.
 - Build command uses `pnpm --dir next-app vercel-build`.
 - `next-app` `vercel-build` now runs Prisma generate with explicit schema path before `next build`.
+
+- Vercel root config no longer defines a `functions` glob for `next-app/app/api/**` (invalid for Next.js app router in root project config).
