@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import {listChats} from '@/lib/server/chat-repository';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ChatsPage() {
   const chats = await listChats(50);
 

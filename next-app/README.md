@@ -69,3 +69,5 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 
 - Root `vercel.json` now relies on Next.js default output handling (removed explicit `outputDirectory`) to avoid adapter mismatch issues.
 - `vercel-build` disables Next telemetry in CI logs (`NEXT_TELEMETRY_DISABLED=1`).
+
+- Dynamic rendering guard added for DB-backed pages (`/chats`, `/chat/:chatId`, `/peer-profile/:peerId`) to avoid build-time prerender DB access on Vercel.

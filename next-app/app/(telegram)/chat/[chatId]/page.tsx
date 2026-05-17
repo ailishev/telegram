@@ -2,6 +2,8 @@ import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import {getChatById} from '@/lib/server/chat-repository';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ChatPage(props: {params: Promise<{chatId: string}>}) {
   const {chatId} = await props.params;
   const chat = await getChatById(chatId);

@@ -121,3 +121,5 @@ Start with **Phase 0 + Phase 1** in a dedicated branch:
 - ✅ Deployment fix: root Vercel build now targets `next-app` (`pnpm --dir next-app vercel-build`) to avoid building legacy Vite app on Vercel.
 - ✅ Vercel fix: removed unmatched root `functions` glob (`next-app/app/api/**/*.ts`) that caused build error on Vercel CLI.
 - ✅ Workspace fix: added `next-app` to pnpm workspace packages to ensure Vercel install includes Next app dependencies (including Prisma CLI).
+- ✅ CI hardening: removed explicit root `outputDirectory` for Next.js build and disabled Next telemetry during Vercel build to keep logs deterministic.
+- ✅ Build stability fix: switched DB-backed Next pages to `dynamic = 'force-dynamic'` and removed self-HTTP fetch in peer profile page (direct repository read).
