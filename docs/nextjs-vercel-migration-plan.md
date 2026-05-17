@@ -108,3 +108,8 @@ Start with **Phase 0 + Phase 1** in a dedicated branch:
 - lock behavior with snapshots for current `PeerProfile`
 - scaffold Next.js app in `/next-app`
 - implement first DB-backed `peer-profile` endpoint with mocked data
+
+## Progress update (2026-05-17)
+
+- ✅ Phase 1 started: `next-app` scaffold and API route shape created.
+- ✅ Phase 2 started: Prisma projection schema + initial SQL migration + DB-backed repository with API fallback behavior.

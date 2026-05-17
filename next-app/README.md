@@ -1,12 +1,25 @@
 # next-app
 
-Initial Phase 1 scaffold for migrating tweb to Next.js on Vercel.
+Initial migration workspace for moving tweb to Next.js on Vercel.
 
-## Included in this phase start
+## Current status
+
+### Phase 1
 
 - Next.js App Router bootstrap.
-- Mocked PeerProfile projection endpoint:
-  - `GET /api/peer-profile/:peerId`
-  - `GET /api/peer-profile/:peerId/sections/:section`
+- API route skeleton for PeerProfile projection.
 
-This intentionally uses mock data and does not yet integrate with Telegram or Prisma.
+### Phase 2 (started)
+
+- Added Prisma schema and first migration for projection tables:
+  - `peer_profiles`
+  - `peer_profile_stories`
+  - `peer_profile_gifts`
+  - `peer_profile_music`
+- Added DB repository and Prisma client wiring.
+- API now reads from DB first, with mock fallback when projection row is absent.
+
+## Endpoints
+
+- `GET /api/peer-profile/:peerId`
+- `GET /api/peer-profile/:peerId/sections/:section`
