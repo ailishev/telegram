@@ -55,3 +55,10 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 - Added environment template (`next-app/.env.example`) with DB and observability variables.
 - Added API health endpoint (`GET /api/health`) with DB ping and structured logs.
 - Added observability logger utility (`lib/observability/logger.ts`) and build script (`vercel-build`).
+
+
+### Vercel build fix (2026-05-17)
+
+- Root `vercel.json` now builds `next-app` directly instead of the legacy Vite root app.
+- Build command uses `pnpm --dir next-app vercel-build`.
+- `next-app` `vercel-build` now runs Prisma generate with explicit schema path before `next build`.

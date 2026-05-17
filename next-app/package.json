@@ -9,7 +9,7 @@
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "vercel-build": "pnpm prisma:generate && pnpm build",
+    "vercel-build": "prisma generate --schema=prisma/schema.prisma && next build",
     "healthcheck": "node -e \"fetch('http://localhost:3000/api/health').then(r=>r.text()).then(console.log)\""
   },
   "dependencies": {

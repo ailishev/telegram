@@ -118,3 +118,4 @@ Start with **Phase 0 + Phase 1** in a dedicated branch:
 - ✅ Phase 4 started: initial Next.js PeerProfile page ported with DB-projection API integration and not-found handling.
 - ✅ Phase 5 started: route structure and base shell scaffold ported (`/chats`, `/chat/:chatId`) using projection-backed reads.
 - ✅ Phase 6 started: Vercel deployment config, env template, healthcheck API, and structured logging baseline added.
+- ✅ Deployment fix: root Vercel build now targets `next-app` (`pnpm --dir next-app vercel-build`) to avoid building legacy Vite app on Vercel.
