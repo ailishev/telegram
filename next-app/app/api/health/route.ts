@@ -6,7 +6,7 @@ export async function GET() {
   const startedAt = Date.now();
 
   try {
-    await prisma.$queryRaw`SELECT 1`;
+    await getPrisma().$queryRaw`SELECT 1`;
     const durationMs = Date.now() - startedAt;
     appLog('info', 'healthcheck.ok', {durationMs});
 

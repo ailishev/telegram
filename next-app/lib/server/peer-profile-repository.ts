@@ -1,7 +1,7 @@
-import {prisma} from '@/lib/server/prisma';
+import {getPrisma} from '@/lib/server/prisma';
 import type {PeerProfileResponse, PeerProfileSection} from '@/types/peer-profile';
 
-function toResponse(row: Awaited<ReturnType<typeof prisma.peerProfile.findUniqueOrThrow>>): PeerProfileResponse {
+function toResponse(row: Awaited<ReturnType<ReturnType<typeof getPrisma>['peerProfile']['findUniqueOrThrow']>>): PeerProfileResponse {
   return {
     peerId: row.peerId,
     kind: row.kind,
@@ -27,7 +27,7 @@ function toResponse(row: Awaited<ReturnType<typeof prisma.peerProfile.findUnique
 }
 
 export async function getPeerProfileFromDb(peerId: string): Promise<PeerProfileResponse | null> {
-  const row = await prisma.peerProfile.findUnique({
+  const row = await getPrisma().peerProfile.findUnique({
     where: {peerId},
     include: {
       stories: {orderBy: {createdAt: 'desc'}},
@@ -49,7 +49,7 @@ export async function getPeerProfileSectionFromDb(peerId: string, section: PeerP
 }
 
 export async function listPeerProfilesFromDb(limit = 20, cursor?: string) {
-  const rows = await prisma.peerProfile.findMany({
+  const rows = await getPrisma().peerProfile.findMany({
     take: Math.max(1, Math.min(limit, 100)),
     ...(cursor ? {skip: 1, cursor: {peerId: cursor}} : {}),
     orderBy: {updatedAt: 'desc'}

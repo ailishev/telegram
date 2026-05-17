@@ -1,7 +1,7 @@
-import {prisma} from '@/lib/server/prisma';
+import {getPrisma} from '@/lib/server/prisma';
 
 export async function listChats(limit = 30) {
-  const rows = await prisma.peerProfile.findMany({
+  const rows = await getPrisma().peerProfile.findMany({
     take: Math.max(1, Math.min(limit, 100)),
     orderBy: {updatedAt: 'desc'}
   });
@@ -15,7 +15,7 @@ export async function listChats(limit = 30) {
 }
 
 export async function getChatById(chatId: string) {
-  const row = await prisma.peerProfile.findUnique({where: {peerId: chatId}});
+  const row = await getPrisma().peerProfile.findUnique({where: {peerId: chatId}});
   if(!row) {
     return null;
   }
