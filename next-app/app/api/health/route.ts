@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server';
-import {getPrisma} from '@/lib/server/prisma';
+import {prisma} from '@/lib/server/prisma';
 import {appLog} from '@/lib/observability/logger';
 
 export async function GET() {
