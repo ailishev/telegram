@@ -120,3 +120,4 @@ Start with **Phase 0 + Phase 1** in a dedicated branch:
 - ✅ Phase 6 started: Vercel deployment config, env template, healthcheck API, and structured logging baseline added.
 - ✅ Deployment fix: root Vercel build now targets `next-app` (`pnpm --dir next-app vercel-build`) to avoid building legacy Vite app on Vercel.
 - ✅ Vercel fix: removed unmatched root `functions` glob (`next-app/app/api/**/*.ts`) that caused build error on Vercel CLI.
+- ✅ Workspace fix: added `next-app` to pnpm workspace packages to ensure Vercel install includes Next app dependencies (including Prisma CLI).

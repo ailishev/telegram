@@ -64,3 +64,5 @@ Initial migration workspace for moving tweb to Next.js on Vercel.
 - `next-app` `vercel-build` now runs Prisma generate with explicit schema path before `next build`.
 
 - Vercel root config no longer defines a `functions` glob for `next-app/app/api/**` (invalid for Next.js app router in root project config).
+
+- Added `next-app` to `pnpm-workspace.yaml` so Vercel root install provisions Next app dependencies and Prisma CLI binaries.
